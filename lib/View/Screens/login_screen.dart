@@ -40,7 +40,7 @@ class LoginScreen extends GetWidget<LoginController> {
                     CoreTextField(
                       labelText: 'Password',
                       textInputAction: TextInputAction.done,
-                      keyboardType: TextInputType.phone,
+                      keyboardType: TextInputType.text,
                       controller: controller.passwordController,
                       validator: AuthValidator.passwordValidator,
                       prefixIcon: AppIcons.password,

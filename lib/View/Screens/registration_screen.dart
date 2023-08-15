@@ -63,7 +63,7 @@ class RegistrationScreen extends GetWidget<RegistrationController> {
                       CoreTextField(
                         labelText: 'Password',
                         textInputAction: TextInputAction.next,
-                        keyboardType: TextInputType.emailAddress,
+                        keyboardType: TextInputType.text,
                         controller: controller.passwordEditingController,
                         validator: AuthValidator.passwordValidator,
                       ),
@@ -71,7 +71,7 @@ class RegistrationScreen extends GetWidget<RegistrationController> {
                       CoreTextField(
                         labelText: 'Confirm Password',
                         textInputAction: TextInputAction.done,
-                        keyboardType: TextInputType.emailAddress,
+                        keyboardType: TextInputType.text,
                         controller: controller.confirmPasswordEditingController,
                         validator: AuthValidator.passwordValidator,
                       ),
