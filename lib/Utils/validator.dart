@@ -14,7 +14,7 @@ class AuthValidator {
   static String? phoneValidator(String? value) {
     if (value?.trim().isEmpty ?? true) return "required!";
     if (value != null && value.length != 11) {
-      return "Phone number must be of exact 10 digits!";
+      return "Phone number must be of exact 11 digits!";
     }
     if (value != null && !GetUtils.isPhoneNumber(value.trim())) {
       return "Invalid phone number!";
