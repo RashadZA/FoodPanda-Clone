@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:foodpanda_clone/Model/user_model.dart';
+import 'package:foodpanda_clone/Utils/design_utils.dart';
 import 'package:get/get.dart';
 
 class CustomDrawer extends StatelessWidget {
   final BuildContext context;
-  final String userName;
-  final  String email;
-  CustomDrawer({super.key,required this.context, required this.email, required this.userName});
-  double drawerFontSize = 17;
+  final UserModel? user;
+  const CustomDrawer({super.key,required this.context, this.user});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,22 +28,13 @@ class CustomDrawer extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    userName ?? 'N/A',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black,
-                      fontFamily: "SFProText",
-                    ),
+                    "${user?.firstName} ${user?.secondName}",
+                    style: AppTextTheme.text18,
                   ),
                   const SizedBox(height: 5),
                   Text(
-                    email ?? 'N/A',
-                    style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.black,
-                        fontFamily: "SFProText",
-                        fontWeight: FontWeight.w500),
+                    user?.email ?? 'N/A',
+                    style: AppTextTheme.text18,
                   ),
                 ],
               ),

@@ -38,3 +38,45 @@ Widget selectIconFromLocal(
     ),
   );
 }
+
+Image noImage({
+  double? width,
+  double? height,
+  BoxFit fit = BoxFit.cover,
+}) =>
+    selectImageFromLocal(
+      setImageMode(AppImage.logo),
+      height: height,
+      width: width,
+      fit: fit,
+    );
+
+Widget networkImage({
+  String? image,
+  double? height,
+  double? width,
+  double borderRadius = 0,
+  BoxFit fit = BoxFit.cover,
+  Color? loaderColor,
+}) {
+  return isNullEmptyOrFalse(image)
+      ? noImage(
+    fit: fit,
+    width: width,
+    height: height,
+  )
+      : ClipRRect(
+    borderRadius: BorderRadius.circular(borderRadius),
+    child: Image.network(
+      GetUtils.isURL(image ?? "") ? image! : "",
+      fit: fit,
+      width: width,
+      height: height,
+        loadingBuilder:(BuildContext context, Widget child, ImageChunkEvent? loadingProgress) =>  Center(child: CupertinoActivityIndicator(color: loaderColor?? AppColors.primaryColor),),
+        errorBuilder: (context, url, error) => const Icon(
+          CupertinoIcons.exclamationmark_circle,
+          color: CupertinoColors.destructiveRed,
+        )
+    ),
+  );
+}

@@ -1,8 +1,14 @@
 
+import 'package:foodpanda_clone/Controller/add_to_card_controller.dart';
+import 'package:foodpanda_clone/Controller/card_controller.dart';
 import 'package:foodpanda_clone/Controller/home_controller.dart';
+import 'package:foodpanda_clone/Controller/item_controller.dart';
 import 'package:foodpanda_clone/Controller/login_controller.dart';
 import 'package:foodpanda_clone/Controller/registration_controller.dart';
+import 'package:foodpanda_clone/View/Screens/add_to_card_screen.dart';
+import 'package:foodpanda_clone/View/Screens/card_screen.dart';
 import 'package:foodpanda_clone/View/Screens/home_screen.dart';
+import 'package:foodpanda_clone/View/Screens/item_screen.dart';
 import 'package:foodpanda_clone/View/Screens/login_screen.dart';
 import 'package:foodpanda_clone/View/Screens/registration_screen.dart';
 import 'package:foodpanda_clone/View/Screens/splash_screen.dart';
@@ -44,7 +50,29 @@ class AppPages {
             () => Get.lazyPut<HomeController>(() => HomeController()),
       ),
       children: [
-
+        GetPage(
+          name: _Paths.item,
+          page: () => const ItemScreen(),
+          binding: BindingsBuilder(
+                () => Get.lazyPut<ItemController>(() => ItemController()),
+          ),
+          children: [
+            GetPage(
+              name: _Paths.addToCart,
+              page: () => AddToCardScreen(),
+              binding: BindingsBuilder(
+                    () => Get.lazyPut<AddToCardController>(() => AddToCardController()),
+              ),
+            ),
+            GetPage(
+              name: _Paths.cart,
+              page: () => CardScreen(),
+              binding: BindingsBuilder(
+                    () => Get.lazyPut<CardController>(() => CardController()),
+              ),
+            ),
+          ]
+        ),
       ],
     ),
   ];

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:foodpanda_clone/Services/Login%20Service/login_auth.dart';
 import 'package:foodpanda_clone/Services/Routes/app_pages.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class LoginController extends GetxController {
   // form key
@@ -23,7 +24,9 @@ class LoginController extends GetxController {
   }
 
   Future<void> init() async {
-
+    if (!await requestPermission(Permission.storage)) {
+      await requestPermission(Permission.storage);
+    }
   }
 
   Future<void> signIn() async {
@@ -33,6 +36,18 @@ class LoginController extends GetxController {
     }
     isSigning.value = false;
   }
-
+  Future<bool> requestPermission(Permission permission) async {
+    if (await permission.isGranted) {
+      return true;
+    } else {
+      var result = await permission.request();
+      if (result == PermissionStatus.granted) {
+        return true;
+      } else if (result == PermissionStatus.permanentlyDenied) {
+        await openAppSettings();
+      }
+    }
+    return false;
+  }
 
 }

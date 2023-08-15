@@ -19,52 +19,56 @@ class HomeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          width: width,
-          decoration: const BoxDecoration(
-            borderRadius:
-                BorderRadius.all(Radius.circular(defaultBorderRadius)),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                padding: const EdgeInsets.only(top: defaultAllPadding),
-                width: width * 0.7,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      itemName,
-                      style: AppTextTheme.text14.copyWith(
-                          fontWeight: FontWeight.w600,
-                          overflow: TextOverflow.visible),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      "Items Available : $itemAvailable Types",
-                      style: AppTextTheme.text14.copyWith(
-                          color: AppColors.grey,
-                          fontWeight: FontWeight.w700,
-                          overflow: TextOverflow.visible),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                  ],
+        InkWell(
+          splashColor: AppColors.primaryColor,
+          onTap: () => onTap(),
+          child: Container(
+            width: width,
+            decoration: const BoxDecoration(
+              borderRadius:
+                  BorderRadius.all(Radius.circular(defaultBorderRadius)),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.only(top: defaultAllPadding),
+                  width: width * 0.7,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        itemName,
+                        style: AppTextTheme.text14.copyWith(
+                            fontWeight: FontWeight.w600,
+                            overflow: TextOverflow.visible),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        "Items Available : $itemAvailable Types",
+                        style: AppTextTheme.text14.copyWith(
+                            color: AppColors.grey,
+                            fontWeight: FontWeight.w700,
+                            overflow: TextOverflow.visible),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              selectImageFromLocal(
-                setImageMode(itemImage),
-                height: 150,
-                width: width * 0.3,
-              )
-            ],
-          ),
-        ).defaultContainer(),
+                selectImageFromLocal(
+                  setImageMode("${AppImage.categoryImagePath}/$itemImage.png"),
+                  height: 100,
+                  width: width * 0.3,
+                ),
+              ],
+            ),
+          ).defaultContainer(),
+        ),
         const SizedBox(
           height: defaultAllPadding,
         ),

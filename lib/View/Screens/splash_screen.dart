@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
   checkLogin() async {
     Timer(
-      const Duration(seconds: 1),
+      const Duration(seconds: 0),
           () => Get.offAllNamed(Routes.login),
     );
   }

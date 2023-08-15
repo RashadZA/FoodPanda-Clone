@@ -1,276 +1,42 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:foodpanda_clone/Model/user_model.dart';
+import 'package:foodpanda_clone/Services/Storage%20Services/get_storage.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
-  List shops = [
-    {
-      "area": "Khan Chamkar Mon",
-      "image_url": "",
-      "latitude": 11.5502283,
-      "shopImage":
-      "https://firebasestorage.googleapis.com/v0/b/foodpanda-7ecb8.appspot.com/o/seller%2FCguEHiQ5QvQhoP7dSutwsB1dLFA3%2Fprofile?alt=media&token=7ffb7207-247a-4616-a94e-5989d1403579",
-      "houseNumber": "105",
-      "rating": 0,
-      "shopName": "Starbuck",
-      "totalRating": 0,
-      "uid": "CguEHiQ5QvQhoP7dSutwsB1dLFA3",
-      "emailVerified": true,
-      "phoneNumber": 1111111,
-      "province": "Phnom Penh",
-      "street": "Oknha Nou Kan Street (St. 105)",
-      "shopDescription": "Fresh and delicious drink!",
-      "name": "Hov Vathana",
-      "floor": "",
-      "isApproved": true,
-      "email": "hovvathana3@gmail.com",
-      "longitude": 104.9192617
-    },
-    {
-      "area": "Khan Tuol Kouk",
-      "image_url": "",
-      "latitude": 11.56732362224277,
-      "shopImage":
-      "https://firebasestorage.googleapis.com/v0/b/foodpanda-7ecb8.appspot.com/o/seller%2FJbjFrqUJRZToFe8c5op0Dnhzo9Z2%2Fprofile?alt=media&token=e3785606-650d-4d94-83d2-bc29fea39e2b",
-      "houseNumber": "N.83",
-      "rating": 0,
-      "shopName": "KOI Thé Reachtheany",
-      "totalRating": 0,
-      "uid": "JbjFrqUJRZToFe8c5op0Dnhzo9Z2",
-      "emailVerified": true,
-      "phoneNumber": 1111111,
-      "province": "Phnom Penh",
-      "street": "Oknha Nou Kan Street (St. 105)",
-      "shopDescription": "Fresh and delicious drink!",
-      "name": "Hov Vathana",
-      "floor": "",
-      "isApproved": true,
-      "email": "hovvathana3@gmail.com",
-      "longitude": 104.9192617
-    },
-    {
-      "area": "Khan Chamkar Mon",
-      "image_url": "",
-      "latitude": 11.5502283,
-      "shopImage":
-      "https://firebasestorage.googleapis.com/v0/b/foodpanda-7ecb8.appspot.com/o/seller%2FCguEHiQ5QvQhoP7dSutwsB1dLFA3%2Fprofile?alt=media&token=7ffb7207-247a-4616-a94e-5989d1403579",
-      "houseNumber": "105",
-      "rating": 0,
-      "shopName": "Starbuck",
-      "totalRating": 0,
-      "uid": "CguEHiQ5QvQhoP7dSutwsB1dLFA3",
-      "emailVerified": true,
-      "phoneNumber": 1111111,
-      "province": "Phnom Penh",
-      "street": "Oknha Nou Kan Street (St. 105)",
-      "shopDescription": "Fresh and delicious drink!",
-      "name": "Hov Vathana",
-      "floor": "",
-      "isApproved": true,
-      "email": "hovvathana3@gmail.com",
-      "longitude": 104.9192617
-    },
-    {
-      "area": "Khan Tuol Kouk",
-      "image_url": "",
-      "latitude": 11.56732362224277,
-      "shopImage":
-      "https://firebasestorage.googleapis.com/v0/b/foodpanda-7ecb8.appspot.com/o/seller%2FJbjFrqUJRZToFe8c5op0Dnhzo9Z2%2Fprofile?alt=media&token=e3785606-650d-4d94-83d2-bc29fea39e2b",
-      "houseNumber": "N.83",
-      "rating": 0,
-      "shopName": "KOI Thé Reachtheany",
-      "totalRating": 0,
-      "uid": "JbjFrqUJRZToFe8c5op0Dnhzo9Z2",
-      "emailVerified": true,
-      "phoneNumber": 1111111,
-      "province": "Phnom Penh",
-      "street": "Oknha Nou Kan Street (St. 105)",
-      "shopDescription": "Fresh and delicious drink!",
-      "name": "Hov Vathana",
-      "floor": "",
-      "isApproved": true,
-      "email": "hovvathana3@gmail.com",
-      "longitude": 104.9192617
-    },
-    {
-      "area": "Khan Chamkar Mon",
-      "image_url": "",
-      "latitude": 11.5502283,
-      "shopImage":
-      "https://firebasestorage.googleapis.com/v0/b/foodpanda-7ecb8.appspot.com/o/seller%2FCguEHiQ5QvQhoP7dSutwsB1dLFA3%2Fprofile?alt=media&token=7ffb7207-247a-4616-a94e-5989d1403579",
-      "houseNumber": "105",
-      "rating": 0,
-      "shopName": "Starbuck",
-      "totalRating": 0,
-      "uid": "CguEHiQ5QvQhoP7dSutwsB1dLFA3",
-      "emailVerified": true,
-      "phoneNumber": 1111111,
-      "province": "Phnom Penh",
-      "street": "Oknha Nou Kan Street (St. 105)",
-      "shopDescription": "Fresh and delicious drink!",
-      "name": "Hov Vathana",
-      "floor": "",
-      "isApproved": true,
-      "email": "hovvathana3@gmail.com",
-      "longitude": 104.9192617
-    },
-    {
-      "area": "Khan Tuol Kouk",
-      "image_url": "",
-      "latitude": 11.56732362224277,
-      "shopImage":
-      "https://firebasestorage.googleapis.com/v0/b/foodpanda-7ecb8.appspot.com/o/seller%2FJbjFrqUJRZToFe8c5op0Dnhzo9Z2%2Fprofile?alt=media&token=e3785606-650d-4d94-83d2-bc29fea39e2b",
-      "houseNumber": "N.83",
-      "rating": 0,
-      "shopName": "KOI Thé Reachtheany",
-      "totalRating": 0,
-      "uid": "JbjFrqUJRZToFe8c5op0Dnhzo9Z2",
-      "emailVerified": true,
-      "phoneNumber": 1111111,
-      "province": "Phnom Penh",
-      "street": "Oknha Nou Kan Street (St. 105)",
-      "shopDescription": "Fresh and delicious drink!",
-      "name": "Hov Vathana",
-      "floor": "",
-      "isApproved": true,
-      "email": "hovvathana3@gmail.com",
-      "longitude": 104.9192617
-    },
-    {
-      "area": "Khan Chamkar Mon",
-      "image_url": "",
-      "latitude": 11.5502283,
-      "shopImage":
-      "https://firebasestorage.googleapis.com/v0/b/foodpanda-7ecb8.appspot.com/o/seller%2FCguEHiQ5QvQhoP7dSutwsB1dLFA3%2Fprofile?alt=media&token=7ffb7207-247a-4616-a94e-5989d1403579",
-      "houseNumber": "105",
-      "rating": 0,
-      "shopName": "Starbuck",
-      "totalRating": 0,
-      "uid": "CguEHiQ5QvQhoP7dSutwsB1dLFA3",
-      "emailVerified": true,
-      "phoneNumber": 1111111,
-      "province": "Phnom Penh",
-      "street": "Oknha Nou Kan Street (St. 105)",
-      "shopDescription": "Fresh and delicious drink!",
-      "name": "Hov Vathana",
-      "floor": "",
-      "isApproved": true,
-      "email": "hovvathana3@gmail.com",
-      "longitude": 104.9192617
-    },
-    {
-      "area": "Khan Tuol Kouk",
-      "image_url": "",
-      "latitude": 11.56732362224277,
-      "shopImage":
-      "https://firebasestorage.googleapis.com/v0/b/foodpanda-7ecb8.appspot.com/o/seller%2FJbjFrqUJRZToFe8c5op0Dnhzo9Z2%2Fprofile?alt=media&token=e3785606-650d-4d94-83d2-bc29fea39e2b",
-      "houseNumber": "N.83",
-      "rating": 0,
-      "shopName": "KOI Thé Reachtheany",
-      "totalRating": 0,
-      "uid": "JbjFrqUJRZToFe8c5op0Dnhzo9Z2",
-      "emailVerified": true,
-      "phoneNumber": 1111111,
-      "province": "Phnom Penh",
-      "street": "Oknha Nou Kan Street (St. 105)",
-      "shopDescription": "Fresh and delicious drink!",
-      "name": "Hov Vathana",
-      "floor": "",
-      "isApproved": true,
-      "email": "hovvathana3@gmail.com",
-      "longitude": 104.9192617
-    },
-    {
-      "area": "Khan Chamkar Mon",
-      "image_url": "",
-      "latitude": 11.5502283,
-      "shopImage":
-      "https://firebasestorage.googleapis.com/v0/b/foodpanda-7ecb8.appspot.com/o/seller%2FCguEHiQ5QvQhoP7dSutwsB1dLFA3%2Fprofile?alt=media&token=7ffb7207-247a-4616-a94e-5989d1403579",
-      "houseNumber": "105",
-      "rating": 0,
-      "shopName": "Starbuck",
-      "totalRating": 0,
-      "uid": "CguEHiQ5QvQhoP7dSutwsB1dLFA3",
-      "emailVerified": true,
-      "phoneNumber": 1111111,
-      "province": "Phnom Penh",
-      "street": "Oknha Nou Kan Street (St. 105)",
-      "shopDescription": "Fresh and delicious drink!",
-      "name": "Hov Vathana",
-      "floor": "",
-      "isApproved": true,
-      "email": "hovvathana3@gmail.com",
-      "longitude": 104.9192617
-    },
-    {
-      "area": "Khan Tuol Kouk",
-      "image_url": "",
-      "latitude": 11.56732362224277,
-      "shopImage":
-      "https://firebasestorage.googleapis.com/v0/b/foodpanda-7ecb8.appspot.com/o/seller%2FJbjFrqUJRZToFe8c5op0Dnhzo9Z2%2Fprofile?alt=media&token=e3785606-650d-4d94-83d2-bc29fea39e2b",
-      "houseNumber": "N.83",
-      "rating": 0,
-      "shopName": "KOI Thé Reachtheany",
-      "totalRating": 0,
-      "uid": "JbjFrqUJRZToFe8c5op0Dnhzo9Z2",
-      "emailVerified": true,
-      "phoneNumber": 1111111,
-      "province": "Phnom Penh",
-      "street": "Oknha Nou Kan Street (St. 105)",
-      "shopDescription": "Fresh and delicious drink!",
-      "name": "Hov Vathana",
-      "floor": "",
-      "isApproved": true,
-      "email": "hovvathana3@gmail.com",
-      "longitude": 104.9192617
-    },
-    {
-      "area": "Khan Chamkar Mon",
-      "image_url": "",
-      "latitude": 11.5502283,
-      "shopImage":
-      "https://firebasestorage.googleapis.com/v0/b/foodpanda-7ecb8.appspot.com/o/seller%2FCguEHiQ5QvQhoP7dSutwsB1dLFA3%2Fprofile?alt=media&token=7ffb7207-247a-4616-a94e-5989d1403579",
-      "houseNumber": "105",
-      "rating": 0,
-      "shopName": "Starbuck",
-      "totalRating": 0,
-      "uid": "CguEHiQ5QvQhoP7dSutwsB1dLFA3",
-      "emailVerified": true,
-      "phoneNumber": 1111111,
-      "province": "Phnom Penh",
-      "street": "Oknha Nou Kan Street (St. 105)",
-      "shopDescription": "Fresh and delicious drink!",
-      "name": "Hov Vathana",
-      "floor": "",
-      "isApproved": true,
-      "email": "hovvathana3@gmail.com",
-      "longitude": 104.9192617
-    },
-    {
-      "area": "Khan Tuol Kouk",
-      "image_url": "",
-      "latitude": 11.56732362224277,
-      "shopImage":
-      "https://firebasestorage.googleapis.com/v0/b/foodpanda-7ecb8.appspot.com/o/seller%2FJbjFrqUJRZToFe8c5op0Dnhzo9Z2%2Fprofile?alt=media&token=e3785606-650d-4d94-83d2-bc29fea39e2b",
-      "houseNumber": "N.83",
-      "rating": 0,
-      "shopName": "KOI Thé Reachtheany",
-      "totalRating": 0,
-      "uid": "JbjFrqUJRZToFe8c5op0Dnhzo9Z2",
-      "emailVerified": true,
-      "phoneNumber": 1111111,
-      "province": "Phnom Penh",
-      "street": "Oknha Nou Kan Street (St. 105)",
-      "shopDescription": "Fresh and delicious drink!",
-      "name": "Hov Vathana",
-      "floor": "",
-      "isApproved": true,
-      "email": "hovvathana3@gmail.com",
-      "longitude": 104.9192617
-    },
-  ];
   final height = Get.height;
   final width = Get.width;
+  CollectionReference categoryCollection =
+  FirebaseFirestore.instance.collection('itemCategorys');
+
+  CollectionReference userCollection =
+  FirebaseFirestore.instance.collection('itemCategorys');
+  RxBool isLoading = false.obs;
+
+  RxList categories = [].obs;
+  RxList allData = [].obs;
+
+  UserModel? loggedInUser = UserModel();
+
   @override
   void onInit() {
     super.onInit();
+    init();
   }
+
+  Future<void> init() async {
+    isLoading.value = true;
+    allData.value = [];
+    categories.value = [];
+    QuerySnapshot querySnapshot = await categoryCollection.get();
+    allData.value = querySnapshot.docs.map((doc) => doc.data()).toList();
+    categories.value = allData[0]['categorys'];
+    isLoading.value = false;
+    // update();
+    print("All Data: ${allData}");
+    print("Categories Data: ${categories}");
+
+  }
+
 }

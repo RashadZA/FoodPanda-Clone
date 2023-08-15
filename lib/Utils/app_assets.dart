@@ -4,6 +4,8 @@ class AppImage{
   AppImage._();
 
   static const String imagePath = 'assets/images';
+  static const String categoryImagePath = 'assets/categoryImages';
+  static const String itemImagePath = 'assets/items';
 
   static const String logo = '$imagePath/logo.png';
   static const String splash = '$imagePath/splash.png';

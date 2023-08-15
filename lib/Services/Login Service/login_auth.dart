@@ -1,20 +1,32 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:foodpanda_clone/Model/user_model.dart';
 import 'package:foodpanda_clone/Services/Routes/app_pages.dart';
+import 'package:foodpanda_clone/Services/Storage%20Services/get_storage.dart';
 import 'package:foodpanda_clone/Utils/design_utils.dart';
 import 'package:get/get.dart';
 
 class LoginAuth{
   // firebase
   final auth = FirebaseAuth.instance;
-
   RxString errorMessage = "".obs;
 
   Future<void> signIn({required String email, required String password}) async {
       try {
-        dynamic login = await auth.signInWithEmailAndPassword(email: email, password: password);
-        print("log : $login");
+        UserCredential login = await auth.signInWithEmailAndPassword(email: email, password: password);
+        print("UID : ${login.user?.uid}");
+        print("log : ${login}");
+        await FirebaseFirestore.instance
+            .collection("users")
+            .doc(login.user?.uid)
+            .get()
+            .then((value) async {
+          print("Login Data: ${value.data()}");
+          // await GSServices.setUser(user: UserModel.fromMap(value.data()));
+        });
+        // await GSServices.setUser(user: user);
         "Sign In Successful".successSnackBar();
         Get.offAllNamed(Routes.home);
       } on FirebaseAuthException catch (error) {

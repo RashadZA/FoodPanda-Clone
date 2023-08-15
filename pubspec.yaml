@@ -39,6 +39,12 @@ dependencies:
   firebase_core: ^2.15.0
   firebase_auth: ^4.7.2
   cloud_firestore: ^4.8.4
+  cached_network_image: ^3.2.3
+  get_storage: ^2.1.1
+  flutter_spinbox: ^0.13.1
+  sqflite: ^2.2.8+4
+  permission_handler: ^10.3.0
+  path_provider: ^2.0.15
 
 dev_dependencies:
   flutter_test:
@@ -67,6 +73,11 @@ flutter:
     - assets/
     - assets/images/
     - assets/icons/
+    - assets/categoryImages/
+    - assets/items/burger/
+    - assets/items/cake/
+    - assets/items/hotDogs/
+    - assets/items/iceCream/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

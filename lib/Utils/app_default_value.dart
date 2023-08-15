@@ -16,8 +16,8 @@ const double defaultIconSize = 30.0;
 
 const double defaultIconButtonAllPadding = 0.0;
 
-const double defaultIconButtonWidth = 50.0;
-const double defaultIconButtonHeight = 50.0;
+const double defaultIconButtonWidth = 140.0;
+const double defaultIconButtonHeight = 140.0;
 
 const double horizontalPadding = 10;
 
@@ -28,3 +28,5 @@ const double defaultUserAvatarRadius = 80.0;
 const double defaultButtonPressedOpacity = 0.6;
 
 const double flatButtonHeight = 56;
+
+const double drawerFontSize = 17;

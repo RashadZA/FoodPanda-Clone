@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'FoodPanda Clone',
       debugShowCheckedModeBanner: false,
-      initialRoute: Routes.splash,
+      initialRoute: Routes.home,
       getPages: AppPages.routes,
       initialBinding: BindingsX.initialBindigs(),
       theme: AppTheme.lightTheme,
