@@ -24,3 +24,7 @@ const double horizontalPadding = 10;
 const double appBarHeight = 50;
 
 const double defaultUserAvatarRadius = 80.0;
+
+const double defaultButtonPressedOpacity = 0.6;
+
+const double flatButtonHeight = 56;

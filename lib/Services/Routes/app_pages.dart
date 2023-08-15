@@ -1,8 +1,10 @@
 
 import 'package:foodpanda_clone/Controller/home_controller.dart';
 import 'package:foodpanda_clone/Controller/login_controller.dart';
+import 'package:foodpanda_clone/Controller/registration_controller.dart';
 import 'package:foodpanda_clone/View/Screens/home_screen.dart';
 import 'package:foodpanda_clone/View/Screens/login_screen.dart';
+import 'package:foodpanda_clone/View/Screens/registration_screen.dart';
 import 'package:foodpanda_clone/View/Screens/splash_screen.dart';
 import 'package:foodpanda_clone/View/Screens/unknow_route_screen.dart';
 import 'package:get/get.dart';
@@ -25,6 +27,15 @@ class AppPages {
       binding: BindingsBuilder(
             () => Get.lazyPut<LoginController>(() => LoginController()),
       ),
+      children: [
+        GetPage(
+          name: _Paths.registration,
+          page: () => const RegistrationScreen(),
+          binding: BindingsBuilder(
+                () => Get.lazyPut<RegistrationController>(() => RegistrationController()),
+          ),
+        )
+      ]
     ),
     GetPage(
       name: _Paths.home,

@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
   checkLogin() async {
     Timer(
-      const Duration(seconds: 03),
+      const Duration(seconds: 1),
           () => Get.offAllNamed(Routes.login),
     );
   }
@@ -28,8 +28,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      child: selectImage(
-        setldImageIcon(AppImage.splash),
+      child: selectImageFromLocal(
+        setImageMode(AppImage.splash),
       ),
     );
   }

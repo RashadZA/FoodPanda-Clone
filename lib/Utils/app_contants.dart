@@ -41,6 +41,9 @@ extension WidgetExtension on Widget {
         margin: EdgeInsets.symmetric(horizontal: hM, vertical: vM),
         child: this,
       );
+
+  Widget defaultLoader({Color? color}) =>
+      Center(child: CupertinoActivityIndicator(color: color ?? AppColors.white));
 }
 
 extension StringExtension on String {

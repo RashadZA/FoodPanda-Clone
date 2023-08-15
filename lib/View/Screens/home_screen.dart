@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:foodpanda_clone/Controller/home_controller.dart';
 import 'package:foodpanda_clone/Utils/design_utils.dart';
+import 'package:foodpanda_clone/View/Components/drawer.dart';
+import 'package:foodpanda_clone/View/Components/home_card.dart';
 import 'package:get/get.dart';
 class HomeScreen extends GetWidget<HomeController> {
   const HomeScreen({Key? key}) : super(key: key);
@@ -12,17 +14,17 @@ class HomeScreen extends GetWidget<HomeController> {
       appBar: AppBar(
         title: const Text(foodPandaClone),
       ),
+      drawer: CustomDrawer(context: context, email: 'aaa',userName: "RA",),
       body: CustomScrollView(
         physics: const BouncingScrollPhysics(),
         slivers: [
           SliverToBoxAdapter(
             child: Column(
               children: [
-                Container(
-                  padding: const EdgeInsets.all(15),
-                  color: Colors.grey[200],
-                  child: buildCollage(context, controller.height),
+                const SizedBox(
+                  height: 10,
                 ),
+                HomeCard(itemName: "Burger", itemAvailable: "25", itemImage: AppImage.burger, onTap: (){}),
                 Container(
                   padding: const EdgeInsets.all(15),
                   color: Colors.grey[200],
@@ -59,7 +61,7 @@ class HomeScreen extends GetWidget<HomeController> {
                     right: 5,
                     child: Image(
                       width: 150,
-                      image: AssetImage('assets/images/food_delivery.png'),
+                      image: AssetImage(AppImage.foodDelivery),
                     ),
                   ),
                   Padding(
@@ -112,7 +114,7 @@ class HomeScreen extends GetWidget<HomeController> {
                         right: 20,
                         child: Image(
                           width: 100,
-                          image: AssetImage('assets/images/shops.png'),
+                          image: AssetImage(AppImage.shops),
                         ),
                       ),
                       Padding(
@@ -165,7 +167,7 @@ class HomeScreen extends GetWidget<HomeController> {
                             right: 0,
                             child: Image(
                               width: 100,
-                              image: AssetImage('assets/images/pick_up.png'),
+                              image: AssetImage(AppImage.pickUp),
                             ),
                           ),
                           Padding(
@@ -213,7 +215,7 @@ class HomeScreen extends GetWidget<HomeController> {
                             right: 0,
                             child: Image(
                               width: 55,
-                              image: AssetImage('assets/images/pandasend.png'),
+                              image: AssetImage(AppImage.pandaSend),
                             ),
                           ),
                           Padding(

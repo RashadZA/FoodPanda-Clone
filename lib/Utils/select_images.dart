@@ -2,13 +2,13 @@ part of 'design_utils.dart';
 
 bool get isDarkMode => false;
 /// To select which Image/Icon being used in current mode
-String setldImageIcon(
+String setImageMode(
     String lightImageIcon, [
       String? darkImageIcon,
     ]) =>
     darkImageIcon != null && isDarkMode ? darkImageIcon : lightImageIcon;
 
-Image selectImage(
+Image selectImageFromLocal(
     String image, {
       double? width,
       double? height,
@@ -19,5 +19,22 @@ Image selectImage(
     fit: fit,
     width: width,
     height: height,
+  );
+}
+
+Widget selectIconFromLocal(
+    String icon, {
+      double? width,
+      Color? color,
+      void Function()? onPressed,
+    }) {
+  return CoreButton(
+    onPressed: onPressed,
+    child: Image.asset(
+      icon,
+      width: width,
+      color: color,
+      height: width,
+    ),
   );
 }
