@@ -159,7 +159,7 @@ class CardScreen extends GetWidget<CardController> {
                 ),
                 Center(
                   child: Text(
-                    "SubTotal : \$${controller.itemSubTotal}",
+                    "SubTotal : ৳${controller.itemSubTotal}",
                     style: AppTextTheme.text16
                         .copyWith(overflow: TextOverflow.visible),
                   ),

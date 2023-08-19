@@ -27,9 +27,13 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      child: selectImageFromLocal(
-        setImageMode(AppImage.splash),
+    return Container(
+      width: Get.width,
+      height: Get.height,
+      color: AppColors.primaryColor,
+      child: Image.asset(
+        AppImage.splash,
+        fit: BoxFit.fill,
       ),
     );
   }

@@ -148,7 +148,7 @@ class AddToCardScreen extends GetWidget<AddToCardController> {
                                     ),
                                     Obx(
                                       () => Text(
-                                        "CA\$${controller.itemTotalBasePrice}",
+                                        "৳${controller.itemTotalBasePrice}",
                                         style: AppTextTheme.text18.copyWith(
                                             fontWeight: FontWeight.w800,
                                             overflow: TextOverflow.visible),
