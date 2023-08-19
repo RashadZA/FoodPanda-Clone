@@ -17,6 +17,7 @@ class ItemController extends GetxController {
   RxList allData = [].obs;
 
   RxString itemKey = "".obs;
+
   RxString itemName = "".obs;
 
   @override
@@ -28,6 +29,7 @@ class ItemController extends GetxController {
   Future<void> init() async {
     isLoading.value = true;
     await getDataFromWhileRoutingToItemScreen();
+    await getData();
     await getDataFromFireStore();
     isLoading.value = false;
     update();
@@ -38,9 +40,9 @@ class ItemController extends GetxController {
     itemName.value = Get.parameters['itemName'] ?? "";
     update();
   }
-  // Future<void> getData() async {
-  //   cartItemList.value = await ItemTable().getItemsListFromTable();
-  // }
+  Future<void> getData() async {
+    cartItemList.value = await ItemTable().getItemsListFromTable();
+  }
   Future<void> getDataFromFireStore() async {
     allData.value = [];
     itemsList.value = [];
@@ -50,6 +52,20 @@ class ItemController extends GetxController {
     update();
     print("All Data: ${allData}");
     print("Categories Data: ${itemsList}");
+  }
+
+  Future<void> getDataAfterComingBackToItemScreen({required String key, required String name}) async {
+    print("After key ${key}");
+    print("After name ${name}");
+    isLoading.value = true;
+    itemKey.value = key;
+    itemName.value = name;
+    print("After Item ${itemKey.value}");
+    print("After Item ${itemName.value}");
+    update();
+    await getData();
+    isLoading.value = false;
+    update();
   }
 
 }

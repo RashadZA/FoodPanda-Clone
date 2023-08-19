@@ -14,3 +14,9 @@ const String removeItem = 'Remove Item';
 
 const String close = 'Close';
 
+const String receipt = 'Receipt';
+
+const String item = 'Item';
+
+const String home = 'Home';
+

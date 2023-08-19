@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:foodpanda_clone/Model/user_model.dart';
+import 'package:foodpanda_clone/Services/Storage%20Services/Local%20DB/item_table.dart';
 import 'package:foodpanda_clone/Services/Storage%20Services/get_storage.dart';
 import 'package:get/get.dart';
 
@@ -17,6 +18,8 @@ class HomeController extends GetxController {
   RxList categories = [].obs;
   RxList allData = [].obs;
 
+  RxList cartItemList = [].obs;
+
   UserModel? loggedInUser = UserModel();
 
   @override
@@ -27,6 +30,7 @@ class HomeController extends GetxController {
 
   Future<void> init() async {
     isLoading.value = true;
+    await getData();
     allData.value = [];
     categories.value = [];
     QuerySnapshot querySnapshot = await categoryCollection.get();
@@ -37,6 +41,10 @@ class HomeController extends GetxController {
     print("All Data: ${allData}");
     print("Categories Data: ${categories}");
 
+  }
+
+  Future<void> getData() async {
+    cartItemList.value = await ItemTable().getItemsListFromTable();
   }
 
 }

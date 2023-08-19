@@ -14,40 +14,54 @@ class ItemScreen extends GetWidget<ItemController> {
       // backgroundColor: Colors.grey[200],
       appBar: AppBar(
         title:  Obx(() => Text(controller.itemName.value)),
-        // actions: [
-        //   Stack(
-        //     children: [
-        //       IconButton(
-        //         onPressed: () {
-        //           Get.toNamed(Routes.cart)
-        //               ?.then((value) => controller.init());
-        //         },
-        //         icon: const Icon(
-        //           Icons.shopping_cart,
-        //           size: 40,
-        //         ),
-        //       ),
-        //       Obx(
-        //             () => controller.cartItemList.isNotEmpty
-        //             ? Positioned(
-        //           top: 0.0,
-        //           right: 8.0,
-        //           child: Container(
-        //             height: 20,
-        //             width: 20,
-        //             decoration: const BoxDecoration(
-        //                 shape: BoxShape.circle, color: AppColors.green),
-        //             child: Center(
-        //               child: Text("${controller.cartItemList.length}",
-        //                   style: AppTextTheme.text14),
-        //             ),
-        //           ),
-        //         )
-        //             : Container(),
-        //       ),
-        //     ],
-        //   )
-        // ],
+        actions: [
+          Stack(
+            children: [
+              IconButton(
+                onPressed: () {
+                  Get.toNamed(Routes.cart,parameters: {
+                    "from": item,
+                    "itemKey": controller.itemKey.value,
+                    "itemName": controller.itemName.value,
+                  },)
+                      ?.then((result) => controller.getDataAfterComingBackToItemScreen(key: result[0]['itemKey'],name: result[0]['itemName']));
+                },
+                icon: const Icon(
+                  Icons.shopping_cart,
+                  size: 40,
+                  color: AppColors.white,
+                ),
+              ),
+              Obx(
+                    () => controller.cartItemList.isNotEmpty
+                    ? Positioned(
+                  top: 0.0,
+                  right: 8.0,
+                  child: Container(
+                    height: 20,
+                    width: 20,
+                    decoration: const BoxDecoration(
+                        shape: BoxShape.circle, color: AppColors.green),
+                    child: Center(
+                      child: Text("${controller.cartItemList.length}",
+                          style: AppTextTheme.text14),
+                    ),
+                  ),
+                )
+                    : Container(),
+              ),
+            ],
+          )
+        ],
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: const Icon(
+            Icons.arrow_back,
+            color: AppColors.white,
+          ),
+        ),
       ),
       body: Obx(() => controller.isLoading.value == true
           ? Center(
@@ -75,17 +89,18 @@ class ItemScreen extends GetWidget<ItemController> {
                           itemBasePrice: "${item['itemBasePrice']}",
                           onTap: () {
                             // Dialogs().addToCard( item: controller.itemList[index]);
-                            // Get.toNamed(
-                            //   Routes.addToCart,
-                            //   parameters: {
-                            //     "itemRoteKey": controller.itemKey.value,
-                            //     "itemKey": "${item['itemKey']}",
-                            //     "itemName": "${item['itemName']}",
-                            //     "itemDescription": "${item['itemDescription']}",
-                            //     "itemQuantity": "${item['itemQuantity']}",
-                            //     "itemBasePrice": "${item['itemBasePrice']}",
-                            //   },
-                            // )?.then((value) => controller.init());
+                            Get.toNamed(
+                              Routes.addToCart,
+                              parameters: {
+                                "itemRoteKey": controller.itemKey.value,
+                                "itemRoteName": controller.itemName.value,
+                                "itemKey": "${item['itemKey']}",
+                                "itemName": "${item['itemName']}",
+                                "itemDescription": "${item['itemDescription']}",
+                                "itemQuantity": "${item['itemQuantity']}",
+                                "itemBasePrice": "${item['itemBasePrice']}",
+                              },
+                            )?.then((result) => controller.getDataAfterComingBackToItemScreen(key: result[0]['itemKey'],name: result[0]['itemName']));
                           },
                         )
                       ],

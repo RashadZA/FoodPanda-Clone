@@ -37,7 +37,7 @@ class DatabaseHelper  {
 
 
   void _createDb(Database db, int newVersion) async {
-    await db.execute('CREATE TABLE IF NOT EXISTS itemsTable( primeKey INTEGER PRIMARY KEY AUTOINCREMENT, itemKey TEXT, itemName TEXT, itemDescription TEXT, itemQuantity TEXT , itemBasePrice TEXT, itemTotalPrice TEXT)');
+    await db.execute('CREATE TABLE IF NOT EXISTS itemsTable( primeKey INTEGER PRIMARY KEY AUTOINCREMENT, itemKey TEXT, itemName TEXT, itemCategory TEXT, itemDescription TEXT, itemQuantity TEXT , itemBasePrice TEXT, itemTotalPrice TEXT)');
   }
 
   Future<void> removeDatabase() async {

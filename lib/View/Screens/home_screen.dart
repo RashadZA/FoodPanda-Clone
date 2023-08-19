@@ -15,6 +15,45 @@ class HomeScreen extends GetWidget<HomeController> {
       // backgroundColor: Colors.grey[200],
       appBar: AppBar(
         title: const Text(foodPandaClone),
+        actions: [
+          Stack(
+            children: [
+              IconButton(
+                onPressed: () {
+                  Get.toNamed(Routes.cart,parameters: {
+                    "from": home,
+                    "itemKey": "",
+                    "itemName": "",
+                  },)
+                      ?.then((result) => controller.init(),);
+                },
+                icon: const Icon(
+                  Icons.shopping_cart,
+                  size: 40,
+                  color: AppColors.white,
+                ),
+              ),
+              Obx(
+                    () => controller.cartItemList.isNotEmpty
+                    ? Positioned(
+                  top: 0.0,
+                  right: 8.0,
+                  child: Container(
+                    height: 20,
+                    width: 20,
+                    decoration: const BoxDecoration(
+                        shape: BoxShape.circle, color: AppColors.green),
+                    child: Center(
+                      child: Text("${controller.cartItemList.length}",
+                          style: AppTextTheme.text14),
+                    ),
+                  ),
+                )
+                    : Container(),
+              ),
+            ],
+          )
+        ],
       ),
       body: Obx(() => controller.isLoading.value == true ? Center(child: SizedBox(width: 50,height: 50,child: defaultLoader(color: AppColors.primaryColor),).defaultContainer()) : CustomScrollView(
         physics: const BouncingScrollPhysics(),

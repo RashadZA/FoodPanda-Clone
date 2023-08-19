@@ -64,16 +64,16 @@ class AppPages {
                     () => Get.lazyPut<AddToCardController>(() => AddToCardController()),
               ),
             ),
-            GetPage(
-              name: _Paths.cart,
-              page: () => CardScreen(),
-              binding: BindingsBuilder(
-                    () => Get.lazyPut<CardController>(() => CardController()),
-              ),
-            ),
           ]
         ),
       ],
+    ),
+    GetPage(
+      name: _Paths.cart,
+      page: () => CardScreen(),
+      binding: BindingsBuilder(
+            () => Get.lazyPut<CardController>(() => CardController()),
+      ),
     ),
   ];
 }

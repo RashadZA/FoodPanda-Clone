@@ -45,6 +45,8 @@ dependencies:
   sqflite: ^2.2.8+4
   permission_handler: ^10.3.0
   path_provider: ^2.0.15
+  screenshot: ^2.1.0
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:
@@ -78,6 +80,8 @@ flutter:
     - assets/items/cake/
     - assets/items/hotDogs/
     - assets/items/iceCream/
+    - assets/items/sandwich/
+    - assets/items/soup/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

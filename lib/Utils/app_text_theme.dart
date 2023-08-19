@@ -11,7 +11,8 @@ class AppTextTheme{
     letterSpacing: -.24,
     overflow: defaultOverflow,
     fontWeight: FontWeight.w500,
-    fontFamily: getSFProFontFamily
+    fontFamily: getSFProFontFamily,
+      decoration: TextDecoration.none,
   );
   static final text16 = TextStyle(
     color: AppColors.black,
@@ -20,6 +21,7 @@ class AppTextTheme{
     overflow: defaultOverflow,
     fontWeight: FontWeight.w500,
     fontFamily: getSFProFontFamily,
+      decoration: TextDecoration.none,
   );
 
   static final text18 = TextStyle(
@@ -29,6 +31,7 @@ class AppTextTheme{
     overflow: defaultOverflow,
     fontWeight: FontWeight.w500,
     fontFamily: getSFProFontFamily,
+      decoration: TextDecoration.none,
   );
 
   static final text22 = TextStyle(
@@ -38,6 +41,7 @@ class AppTextTheme{
     overflow: defaultOverflow,
     fontWeight: FontWeight.w500,
     fontFamily: getSFProFontFamily,
+      decoration: TextDecoration.none,
   );
 
   static final text24 = TextStyle(
@@ -47,5 +51,6 @@ class AppTextTheme{
     overflow: defaultOverflow,
     fontWeight: FontWeight.w500,
     fontFamily: getSFProFontFamily,
+      decoration: TextDecoration.none,
   );
 }

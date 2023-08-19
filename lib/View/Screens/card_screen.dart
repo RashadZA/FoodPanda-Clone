@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodpanda_clone/Controller/card_controller.dart';
 import 'package:foodpanda_clone/Utils/design_utils.dart';
+import 'package:foodpanda_clone/View/Components/core_flat_button.dart';
 import 'package:get/get.dart';
 
 class CardScreen extends GetWidget<CardController> {
@@ -15,6 +16,21 @@ class CardScreen extends GetWidget<CardController> {
         appBar: AppBar(
           title: const Text(
             addToCard,
+          ),
+          leading: IconButton(
+            onPressed: () {
+                Get.back(result: [
+                  {
+                    "itemKey": controller.itemRoteKey.value,
+                    "itemName": controller.itemRoteName.value,
+                  }
+                ]);
+
+            },
+            icon: const Icon(
+              Icons.arrow_back,
+              color: AppColors.white,
+            ),
           ),
         ),
         body: Container(
@@ -73,8 +89,8 @@ class CardScreen extends GetWidget<CardController> {
                               onPressed: () {
                                 controller.updateItemQuantity(
                                     itemIndex: index,
-                                    itemID: controller.itemsList[index]
-                                    ['itemId'] ??
+                                    itemKey: controller.itemsList[index]
+                                    ['itemKey'] ??
                                         "",
                                     updateType: addItem);
                               },
@@ -103,8 +119,8 @@ class CardScreen extends GetWidget<CardController> {
                               onPressed: () {
                                 controller.updateItemQuantity(
                                     itemIndex: index,
-                                    itemID: controller.itemsList[index]
-                                    ['itemId'] ??
+                                    itemKey: controller.itemsList[index]
+                                    ['itemKey'] ??
                                         "",
                                     updateType: removeItem);
                               },
@@ -121,8 +137,8 @@ class CardScreen extends GetWidget<CardController> {
                                 controller.deleteItemFromCart(
                                     itemPrimeKey: controller
                                         .itemsList[index]['primeKey'],
-                                    itemID: controller.itemsList[index]
-                                    ['itemId'] ??
+                                    itemKey: controller.itemsList[index]
+                                    ['itemKey'] ??
                                         "");
                               },
                               icon: const Icon(Icons.delete),
@@ -152,24 +168,12 @@ class CardScreen extends GetWidget<CardController> {
                 SizedBox(
                   height: height * 0.02,
                 ),
-                Center(
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                      AppColors.primaryColor, // Background color
-                    ),
-                    onPressed: () {
-                      controller.checkOut();
-                    },
-                    child: Text(
-                      "Check Out",
-                      style: AppTextTheme.text18.copyWith(
-                          fontWeight: FontWeight.w800,
-                          overflow: TextOverflow.visible,
-                          color: AppColors.white),
-                    ),
-                  ),
-                ),
+                Obx(() => CoreFlatButton(
+                  text: "Check Out",
+                  isGradientBg: true,
+                  onPressed:() => controller.checkOut(context: context),
+                  isLoading: controller.isCheckingOut.value,
+                ).paddingSymmetric(horizontal: 20),),
               ],
             ).defaultContainer()),
           ),

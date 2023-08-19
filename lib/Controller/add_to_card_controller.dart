@@ -8,6 +8,7 @@ class AddToCardController extends GetxController {
 
   RxString itemKey = "".obs;
   RxString itemRoteKey = "".obs;
+  RxString itemRoteName = "".obs;
   RxString imageURL = "".obs;
 
   RxString itemName = "".obs;
@@ -21,7 +22,9 @@ class AddToCardController extends GetxController {
 
   RxDouble itemTotalBasePrice = 0.0.obs;
 
-  TextEditingController itemQuantityController = TextEditingController();
+  RxBool isLoading = false.obs;
+
+  RxBool addingToCard = false.obs;
 
   @override
   void onInit() {
@@ -30,12 +33,17 @@ class AddToCardController extends GetxController {
   }
 
   Future<void> init() async {
+    isLoading.value = true;
     itemRoteKey.value = Get.parameters['itemRoteKey'] ?? "";
+    itemRoteName.value = Get.parameters['itemRoteName'] ?? "";
     itemKey.value = Get.parameters['itemKey'] ?? "";
     itemQuantityAvailable.value =  double.parse(Get.parameters['itemQuantity'] ?? "0");
     itemName.value = Get.parameters['itemName'] ?? "";
     itemDescription.value = Get.parameters['itemDescription'] ?? "";
     itemBasePrice.value = Get.parameters['itemBasePrice'] ?? "";
+    isLoading.value = false;
+    print("Item ${itemRoteKey.value}");
+    print("Item ${itemRoteName.value}");
   }
 
   Future<void> addItemQuantity({required double itemQTY}) async {
@@ -45,19 +53,26 @@ class AddToCardController extends GetxController {
   }
 
   Future<void> addItemInTable() async {
+    addingToCard.value = true;
     if (!await requestPermission(Permission.storage)) {
       await requestPermission(Permission.storage);
     }
     try {
       if (itemQuantity.value > 0) {
-        // ItemTable().insertItemIntoTable(
-        //     keyOfItem: itemKey.value,
-        //     nameOfItem: itemName.value,
-        //     descriptionOfItem: itemDescription.value,
-        //     quantityOfItem: itemQuantity.value.toString(),
-        //     basePriceOfItem: itemBasePrice.value,
-        //     totalPriceOfItem: itemTotalBasePrice.value.toString());
-        Get.back();
+        ItemTable().insertItemIntoTable(
+            keyOfItem: itemKey.value,
+            nameOfItem: itemName.value,
+            categoryOfItem: itemRoteName.value,
+            descriptionOfItem: itemDescription.value,
+            quantityOfItem: itemQuantity.value.toString(),
+            basePriceOfItem: itemBasePrice.value,
+            totalPriceOfItem: itemTotalBasePrice.value.toString());
+        Get.back(result: [
+          {
+            "itemKey": itemRoteKey.value,
+            "itemName": itemRoteName.value,
+          }
+        ]);
         "${itemName.value} added to cart — ${itemQuantity.value} item(s)"
             .successSnackBar();
       } else {
@@ -66,6 +81,7 @@ class AddToCardController extends GetxController {
     } catch (e) {
       "$e".errorSnackBar();
     }
+    addingToCard.value = false;
   }
 
   Future<bool> requestPermission(Permission permission) async {
