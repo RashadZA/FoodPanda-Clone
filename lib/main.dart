@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'FoodPanda Clone',
+      title: foodPandaClone,
       debugShowCheckedModeBanner: false,
       initialRoute: Routes.splash,
       getPages: AppPages.routes,
