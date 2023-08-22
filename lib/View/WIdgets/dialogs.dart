@@ -166,7 +166,7 @@ class Dialogs {
                       children: <Widget>[
                         for (Map category in categories) ...[
                           const SizedBox(
-                            height: 20,
+                            height: 10,
                           ),
                           Center(
                             child: Text(
@@ -175,13 +175,7 @@ class Dialogs {
                               AppTextTheme.text14.copyWith(fontWeight: FontWeight.w700),
                             ),
                           ),
-                          const SizedBox(
-                            height: 20,
-                          ),
                           Container().defaultDivider(),
-                          const SizedBox(
-                            height: 20,
-                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -215,11 +209,8 @@ class Dialogs {
                               ),
                             ],
                           ).paddingOnly(left: 5, right: 5),
-                          const SizedBox(
-                            height: 20,
-                          ),
                           for (Map item in itemsList) ...[
-                            Row(
+                            item['itemCategory'] == category['itemCategory'] ? Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
@@ -251,15 +242,13 @@ class Dialogs {
                                   ),
                                 ),
                               ],
-                            ).paddingOnly(left: 5, right: 5),
+                            ).paddingOnly(left: 5, right: 5): Container(),
                           ],
                         ],
-                        const SizedBox(
-                          height: 20,
-                        ),
+
                         Container().defaultDivider(),
                         const SizedBox(
-                          height: 20,
+                          height: 10,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -286,7 +275,7 @@ class Dialogs {
                           ],
                         ).paddingOnly(left: 20, right: 20),
                         const SizedBox(
-                          height: 20,
+                          height: 10,
                         ),
                       ],
                     ),
