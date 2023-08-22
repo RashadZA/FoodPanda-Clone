@@ -92,21 +92,26 @@ class CardController extends GetxController {
     List<Map> categories = await ItemTable().getItemsCategoryListFromTable();
     update();
     if (context.mounted){
-      await downloadInvoice(
-          context: context,
-          roteKey: itemRoteKey.value,
+      Get.back(result: [
+        {
+          "itemKey": itemRoteKey.value,
+          "itemName": itemRoteName.value,
+        }
+      ]);
+      Dialogs().statusDialog(roteKey: itemRoteKey.value,
           roteName: itemRoteName.value,
           categories: categories,
           itemsList: itemsList,
           total: itemSubTotal.value);
+      // await downloadInvoice(
+      //     context: context,
+      //     roteKey: itemRoteKey.value,
+      //     roteName: itemRoteName.value,
+      //     categories: categories,
+      //     itemsList: itemsList,
+      //     total: itemSubTotal.value);
     }
     await ItemTable().clearItemTable();
-    Get.back(result: [
-      {
-        "itemKey": itemRoteKey.value,
-        "itemName": itemRoteName.value,
-      }
-    ]);
     isCheckingOut.value = false;
   }
 
@@ -118,45 +123,69 @@ class CardController extends GetxController {
     required List itemsList,
     required double total,
   }) async {
-    screenshotController
-        .captureFromLongWidget(
-      InheritedTheme.captureAll(
-        context,
-        Material(
-          child: ReceiptWidget().invoicePrintWidget(
-              roteKey: roteKey,
-              roteName: roteName,
-              categories: categories,
-              itemsList: itemsList,
-              total: total,
-              width: 540),
-        ),
-      ),
-      delay: const Duration(milliseconds: 300),
-      context: context,
-    )
-        .then((image) async {
-          receipt = image;
-          update();
-      // Handle captured image
-      if (!await requestPermission(Permission.storage)) {
-        await requestPermission(Permission.storage);
-      }
-      if (await requestPermission(Permission.storage)) {
-        if (Platform.isAndroid) {
-          downloadInvoiceForAndroid(
-              fileName:
-                  DateFormat("MMM d yyyy hh.mm.ssa").format(DateTime.now()),
-              invoice: image);
-        } else if (Platform.isIOS) {
-          downloadInvoiceForIOS(
-              fileName:
-                  DateFormat("MMM d yyyy hh.mm.ssa").format(DateTime.now()),
-              invoice: image);
+    invoicePrintWidget(
+        roteKey: roteKey,
+        roteName: roteName,
+        categories: categories,
+        itemsList: itemsList,
+        total: total,
+        width: Get.width - 40);
+    screenshotController.capture().then((image) async {
+      if(image != null){
+        receipt = image;
+        update();
+        // Handle captured image
+        if (!await requestPermission(Permission.storage)) {
+          await requestPermission(Permission.storage);
         }
-        Dialogs().statusDialog01(invoice: image);
+        if (await requestPermission(Permission.storage)) {
+          if (Platform.isAndroid) {
+            downloadInvoiceForAndroid(
+                fileName:
+                DateFormat("MMM d yyyy hh.mm.ssa").format(DateTime.now()),
+                invoice: image);
+          } else if (Platform.isIOS) {
+            downloadInvoiceForIOS(
+                fileName:
+                DateFormat("MMM d yyyy hh.mm.ssa").format(DateTime.now()),
+                invoice: image);
+          }
+          Dialogs().statusDialog01(invoice: image);
+        }
+      }else{
+        "Unable to take ScreenShot".errorSnackBar();
       }
     });
+    // screenshotController
+    //     .captureFromWidget(ReceiptWidget().invoicePrintWidget(
+    //         roteKey: roteKey,
+    //         roteName: roteName,
+    //         categories: categories,
+    //         itemsList: itemsList,
+    //         total: total,
+    //         width: Get.width - 40))
+    //     .then((image) async {
+    //       receipt = image;
+    //       update();
+    //   // Handle captured image
+    //   if (!await requestPermission(Permission.storage)) {
+    //     await requestPermission(Permission.storage);
+    //   }
+    //   if (await requestPermission(Permission.storage)) {
+    //     if (Platform.isAndroid) {
+    //       downloadInvoiceForAndroid(
+    //           fileName:
+    //               DateFormat("MMM d yyyy hh.mm.ssa").format(DateTime.now()),
+    //           invoice: image);
+    //     } else if (Platform.isIOS) {
+    //       downloadInvoiceForIOS(
+    //           fileName:
+    //               DateFormat("MMM d yyyy hh.mm.ssa").format(DateTime.now()),
+    //           invoice: image);
+    //     }
+    //     Dialogs().statusDialog01(invoice: image);
+    //   }
+    // });
   }
 
   Future<void> downloadInvoiceForAndroid(
@@ -203,5 +232,153 @@ class CardController extends GetxController {
     return false;
   }
 
+
+  Widget invoicePrintWidget({
+    required String roteKey,
+    required String roteName,
+    required List<Map> categories,
+    required List itemsList,
+    required double total,
+    required double width,
+  }) {
+    return Screenshot(
+      controller: screenshotController,
+      child:  Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5),
+          color: AppColors.white,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            for (Map category in categories) ...[
+              const SizedBox(
+                height: 20,
+              ),
+              Center(
+                child: Text(
+                  category['itemCategory'] ?? "N/A",
+                  style:
+                  AppTextTheme.text14.copyWith(fontWeight: FontWeight.w700),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Container().defaultDivider(),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: width * 0.5,
+                    child: Text(
+                      "Name",
+                      style: AppTextTheme.text14.copyWith(
+                          fontWeight: FontWeight.w700,
+                          overflow: TextOverflow.visible),
+                    ),
+                  ),
+                  SizedBox(
+                    width: width * 0.2,
+                    child: Text(
+                      "Qty",
+                      style: AppTextTheme.text14.copyWith(
+                          fontWeight: FontWeight.w700,
+                          overflow: TextOverflow.visible),
+                    ),
+                  ),
+                  SizedBox(
+                    width: width * 0.3,
+                    child: Text(
+                      "Price",
+                      style: AppTextTheme.text14.copyWith(
+                          fontWeight: FontWeight.w700,
+                          overflow: TextOverflow.visible),
+                    ),
+                  ),
+                ],
+              ).paddingOnly(left: 20, right: 20),
+              const SizedBox(
+                height: 20,
+              ),
+              for (Map item in itemsList) ...[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: width * 0.5,
+                      child: Text(
+                        "${item['itemName']}",
+                        style: AppTextTheme.text14.copyWith(
+                            fontWeight: FontWeight.w700,
+                            overflow: TextOverflow.visible),
+                      ),
+                    ),
+                    SizedBox(
+                      width: width * 0.2,
+                      child: Text(
+                        "${item['itemQuantity']}",
+                        style: AppTextTheme.text14.copyWith(
+                            fontWeight: FontWeight.w700,
+                            overflow: TextOverflow.visible),
+                      ),
+                    ),
+                    SizedBox(
+                      width: width * 0.3,
+                      child: Text(
+                        "${item['itemTotalPrice']}",
+                        style: AppTextTheme.text14.copyWith(
+                            fontWeight: FontWeight.w700,
+                            overflow: TextOverflow.visible),
+                      ),
+                    ),
+                  ],
+                ).paddingOnly(left: 20, right: 20),
+              ],
+            ],
+            const SizedBox(
+              height: 20,
+            ),
+            Container().defaultDivider(),
+            const SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: width * 0.5,
+                  child: Text(
+                    "Total Amount : ",
+                    style: AppTextTheme.text14.copyWith(
+                        fontWeight: FontWeight.w700,
+                        overflow: TextOverflow.visible),
+                  ),
+                ),
+                SizedBox(
+                  width: width * 0.3,
+                  child: Text(
+                    "$total",
+                    style: AppTextTheme.text14.copyWith(
+                        fontWeight: FontWeight.w700,
+                        overflow: TextOverflow.visible),
+                  ),
+                ),
+              ],
+            ).paddingOnly(left: 20, right: 20),
+            const SizedBox(
+              height: 20,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
 }
