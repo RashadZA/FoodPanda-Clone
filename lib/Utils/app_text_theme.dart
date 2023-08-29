@@ -5,9 +5,18 @@ class AppTextTheme{
   static TextOverflow defaultOverflow = TextOverflow.ellipsis;
   static String get getSFProFontFamily => 'SFProText';
 
+  static final text12 = TextStyle(
+    color: AppColors.black,
+    fontSize: 12,
+    letterSpacing: -.24,
+    overflow: defaultOverflow,
+    fontWeight: FontWeight.w500,
+    fontFamily: getSFProFontFamily,
+    decoration: TextDecoration.none,
+  );
   static final text14 = TextStyle(
     color: AppColors.black,
-    fontSize: 16,
+    fontSize: 14,
     letterSpacing: -.24,
     overflow: defaultOverflow,
     fontWeight: FontWeight.w500,

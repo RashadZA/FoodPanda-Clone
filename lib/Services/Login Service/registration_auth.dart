@@ -15,23 +15,22 @@ class RegistrationAuth {
     required String userMobile,
 
 }) async {
-    print("1111");
     try{
       User? user = auth.currentUser;
       UserModel userModel = UserModel();
      dynamic reg = await auth.createUserWithEmailAndPassword(email: userEmail, password: userPassword).then((value) async {
-        // writing all the values
+       // writing all the values
         userModel.email = user!.email;
         userModel.uid = user.uid;
         userModel.firstName = userFirstName;
         userModel.secondName = userSecondName;
         userModel.mobileNumber = userMobile;
-
         await firebaseFireStore
             .collection("users")
             .doc(user.uid)
             .set(userModel.toMap());
-        "Account created successful.. ".successSnackBar();
+        user.sendEmailVerification();
+        "Account created successful...".successSnackBar();
       }).catchError((error){
         error.toString().errorSnackBar();
       });

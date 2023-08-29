@@ -1,12 +1,14 @@
 
 import 'package:foodpanda_clone/Controller/add_to_card_controller.dart';
 import 'package:foodpanda_clone/Controller/card_controller.dart';
+import 'package:foodpanda_clone/Controller/forget_password_controller.dart';
 import 'package:foodpanda_clone/Controller/home_controller.dart';
 import 'package:foodpanda_clone/Controller/item_controller.dart';
 import 'package:foodpanda_clone/Controller/login_controller.dart';
 import 'package:foodpanda_clone/Controller/registration_controller.dart';
 import 'package:foodpanda_clone/View/Screens/add_to_card_screen.dart';
 import 'package:foodpanda_clone/View/Screens/card_screen.dart';
+import 'package:foodpanda_clone/View/Screens/forget_password_screen.dart';
 import 'package:foodpanda_clone/View/Screens/home_screen.dart';
 import 'package:foodpanda_clone/View/Screens/item_screen.dart';
 import 'package:foodpanda_clone/View/Screens/login_screen.dart';
@@ -40,7 +42,14 @@ class AppPages {
           binding: BindingsBuilder(
                 () => Get.lazyPut<RegistrationController>(() => RegistrationController()),
           ),
-        )
+        ),
+        GetPage(
+          name: _Paths.forgetPassword,
+          page: () => const ForgetPasswordScreen(),
+          binding: BindingsBuilder(
+                () => Get.lazyPut<ForgetPasswordController>(() => ForgetPasswordController()),
+          ),
+        ),
       ]
     ),
     GetPage(

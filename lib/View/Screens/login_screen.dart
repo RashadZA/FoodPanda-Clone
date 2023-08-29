@@ -24,7 +24,7 @@ class LoginScreen extends GetWidget<LoginController> {
             Form(
                 key: controller.formKey,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     CoreTextField(
                       labelText: 'Email',
@@ -46,29 +46,56 @@ class LoginScreen extends GetWidget<LoginController> {
                       prefixIcon: AppIcons.password,
                     ),
                     const SizedBox(
+                      height: 5,
+                    ),
+                    Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: 'Forget Password',
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                Get.toNamed(Routes.forgetPassword);
+                              },
+                            style: AppTextTheme.text12.copyWith(
+                                color: AppColors.primaryColor,
+                                fontWeight: FontWeight.w800),
+                          ),
+                        ],
+                      ),
+                        textAlign: TextAlign.end
+                    ),
+                    const SizedBox(
                       height: 10,
                     ),
-                    Obx(() => CoreFlatButton(
-                      text: 'Sign In'.toUpperCase(),
-                      isGradientBg: true,
-                      onPressed: controller.signIn,
-                      isLoading: controller.isSigning.value,
-                    ).paddingSymmetric(horizontal: 17),),
+                    Obx(
+                      () => CoreFlatButton(
+                        text: 'Sign In'.toUpperCase(),
+                        isGradientBg: true,
+                        onPressed: controller.signIn,
+                        isLoading: controller.isSigning.value,
+                      ).paddingSymmetric(horizontal: 17),
+                    ),
                     const SizedBox(
                       height: 10,
                     ),
                     Center(
                       child: Text.rich(TextSpan(children: [
-                        TextSpan(text: "Don't have an account? ",style: AppTextTheme.text18),
+                        TextSpan(
+                            text: "Don't have an account? ",
+                            style: AppTextTheme.text18),
                         TextSpan(
                           text: 'Sign Up',
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                            Get.toNamed(Routes.registration);
+                              Get.toNamed(Routes.registration);
                             },
-                          style: AppTextTheme.text22.copyWith(color: AppColors.primaryColor, fontWeight: FontWeight.w800),
+                          style: AppTextTheme.text22.copyWith(
+                              color: AppColors.primaryColor,
+                              fontWeight: FontWeight.w800),
                         ),
-                      ])).defaultContainer(backgroundColor: AppColors.backgroundColor),
+                      ])).defaultContainer(
+                          backgroundColor: AppColors.backgroundColor),
                     ),
                   ],
                 )).defaultContainer(backgroundColor: AppColors.backgroundColor),

@@ -6,6 +6,7 @@ abstract class Routes {
   static const splash = _Paths.splash;
   static const login = _Paths.login;
   static const registration = login + _Paths.registration;
+  static const forgetPassword = login + _Paths.forgetPassword;
   static const home = _Paths.home;
   static const item = home + _Paths.item;
   static const addToCart = item + _Paths.addToCart;
@@ -23,5 +24,6 @@ abstract class _Paths {
   static const item = '/item';
   static const addToCart = '/addToCart';
   static const cart = '/cart';
+  static const forgetPassword = '/forgetPassword';
 
 }
