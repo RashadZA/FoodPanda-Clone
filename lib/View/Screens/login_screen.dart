@@ -21,7 +21,7 @@ class LoginScreen extends GetWidget<LoginController> {
               height: _headerHeight,
               child: HeaderWidget(_headerHeight, true, Icons.login_rounded),
             ),
-            Form(
+            Obx(() => Form(
                 key: controller.formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -44,32 +44,42 @@ class LoginScreen extends GetWidget<LoginController> {
                       controller: controller.passwordController,
                       validator: AuthValidator.passwordValidator,
                       prefixIcon: AppIcons.password,
+                      obscureText: controller.obscureText.value,
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          !controller.obscureText.value
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: AppColors.primaryColor,
+                        ),
+                        onPressed: () => controller.changePasswordVisibilityStatus(status: controller.obscureText.value),
+                      ),
                     ),
                     const SizedBox(
                       height: 5,
                     ),
                     Text.rich(
-                      TextSpan(
-                        children: [
-                          TextSpan(
-                            text: 'Forget Password',
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                Get.toNamed(Routes.forgetPassword);
-                              },
-                            style: AppTextTheme.text12.copyWith(
-                                color: AppColors.primaryColor,
-                                fontWeight: FontWeight.w800),
-                          ),
-                        ],
-                      ),
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'Forget Password',
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Get.toNamed(Routes.forgetPassword);
+                                },
+                              style: AppTextTheme.text12.copyWith(
+                                  color: AppColors.primaryColor,
+                                  fontWeight: FontWeight.w800),
+                            ),
+                          ],
+                        ),
                         textAlign: TextAlign.end
                     ),
                     const SizedBox(
                       height: 10,
                     ),
                     Obx(
-                      () => CoreFlatButton(
+                          () => CoreFlatButton(
                         text: 'Sign In'.toUpperCase(),
                         isGradientBg: true,
                         onPressed: controller.signIn,
@@ -98,7 +108,7 @@ class LoginScreen extends GetWidget<LoginController> {
                           backgroundColor: AppColors.backgroundColor),
                     ),
                   ],
-                )).defaultContainer(backgroundColor: AppColors.backgroundColor),
+                )).defaultContainer(backgroundColor: AppColors.backgroundColor)),
           ],
         ),
       ),

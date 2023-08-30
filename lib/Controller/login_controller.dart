@@ -13,7 +13,7 @@ class LoginController extends GetxController {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-
+  RxBool obscureText = true.obs;
 
   RxBool isSigning = false.obs;
 
@@ -27,6 +27,10 @@ class LoginController extends GetxController {
     if (!await requestPermission(Permission.storage)) {
       await requestPermission(Permission.storage);
     }
+  }
+  Future<void> changePasswordVisibilityStatus({required bool status}) async {
+    obscureText.value = !status;
+    update();
   }
 
   Future<void> signIn() async {
